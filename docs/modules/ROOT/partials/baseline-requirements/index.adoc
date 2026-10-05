@@ -23,9 +23,17 @@ These requirements apply to every trust governance partner designated for identi
 
 === Status and revocation
 
-* A credential issuer MUST provide a means for validators to determine whether a credential was valid at the time of signing.
+* Every credential MUST identify a means by which validators can discover its current status. A credential with no discoverable status method does not meet these requirements.
+* A credential issuer MUST keep status information available for every credential for at least *[TBD]* after the credential expires, so that revocations made after expiry can still be discovered.
 * A credential issuer MUST revoke a credential within *[TBD]* of learning that it was issued in error, its key was compromised, or the subject's verified information is no longer accurate.
-* Revocation MUST NOT invalidate identity assertions that a trusted time stamp shows were signed before revocation.
+* A credential issuer MUST record the reason for every revocation.
+
+The effect of revocation depends on the reason:
+
+* *Routine revocation* (the subject's details changed, its relationship with the issuer ended, or the credential was replaced) MUST NOT invalidate identity assertions that a trusted time stamp shows were signed before the revocation time.
+* *Revocation for key compromise or mis-issuance* MUST carry an *invalidity date*. For key compromise, this is the earliest time the key is known or suspected to have been compromised. For mis-issuance, this is the time the credential was issued. Identity assertions whose trusted time of signing is at or after the invalidity date MUST be treated as untrusted, even if they were time-stamped before the revocation time.
+
+An invalidity date MUST NOT be earlier than the start of the credential's validity period. A credential issuer MUST keep the evidence on which an invalidity date is based, and MUST provide it to its trust governance partner on request, so that the date can be reviewed and an issuer cannot invalidate legitimate signatures without cause.
 
 === Validity period
 

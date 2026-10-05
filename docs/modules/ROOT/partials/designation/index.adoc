@@ -48,17 +48,27 @@ A designation agreement MUST state:
 
 === Suspension and withdrawal
 
-CAWG MAY suspend or withdraw a designation if the partner stops meeting the designation criteria, fails to report or remedy an incident, or asks to withdraw.
+CAWG MAY suspend or withdraw a designation if the partner stops meeting the designation criteria, fails to report or remedy an incident, or asks to withdraw. CAWG MAY reinstate a suspended designation once the cause is remedied.
 
-Withdrawal MUST be recorded in the designation register with an end date. Partners' trust anchor configurations MUST be given a matching `notAfter` rather than removed, so that identity assertions signed while the designation was in effect remain verifiable.
+Suspension, reinstatement and withdrawal:
+
+* MUST be recorded in the designation register as a change to the designation's intervals (see <<_designation_register>>), with the date and time from which the change takes effect;
+* MUST take effect from the recorded time onwards, and MUST NOT be backdated. Identity assertions whose trusted time of signing falls inside an interval in which the designation was in effect remain trusted (subject to the credential's own status); and
+* for withdrawal, SHOULD be matched by the partner giving its trust anchor configurations a corresponding `notAfter`. Validators do not depend on this, because they enforce the register's intervals directly (<<_validator_requirements>>).
+
+NOTE: Suspension and withdrawal are not the mechanism for invalidating signatures made with a compromised key or a mis-issued credential. That is done by the credential issuer recording an invalidity date (<<_status_and_revocation>>), which applies to specific credentials rather than to a whole partner.
 
 === Designation register
 
 CAWG publishes a designation register listing, for each current and past designation:
 
 * the partner's name and scope;
-* the start date and, if applicable, end date;
+* one or more *designation intervals*: each with a start date/time and, if it has ended, an end date/time. A suspension ends an interval; a reinstatement starts a new one. Withdrawal ends the last interval;
 * the location of the partner's published trust list; and
 * the applicable credential-type profile.
+
+The designation register is authoritative for when a designation is in effect. A partner's own trust anchor dates can narrow that period but cannot extend it.
+
+The register MUST be published at a stable HTTPS URL, SHOULD be signed, and MUST keep past intervals rather than deleting them, so that historical signatures can be evaluated.
 
 The register is a record of CAWG's recognition decisions. It is not itself a trust list, and CAWG does not operate the partners' lists.

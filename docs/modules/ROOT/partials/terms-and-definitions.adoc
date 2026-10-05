@@ -14,6 +14,9 @@ The application of the baseline requirements to a particular credential type, su
 Designation::
 CAWG's formal recognition that a trust governance partner's framework meets the baseline requirements and the designation criteria, for a stated scope and period (<<_designation>>).
 
+Designation interval::
+A period, recorded in the designation register, during which a designation is in effect. A designation may have several intervals if it is suspended and reinstated.
+
 Designation agreement::
 The agreement between CAWG and a trust governance partner setting out the scope, terms and obligations of a designation.
 
@@ -22,6 +25,9 @@ CAWG's published record of current and past designations, with each partner's sc
 
 Identity attestation::
 A statement by a credential issuer about who a signer is.
+
+Invalidity date::
+For a credential revoked for key compromise or mis-issuance, the earliest time from which signatures made with it are not to be trusted. For X.509, this is carried in the Invalidity Date extension (RFC 5280, Section 5.3.2).
 
 Role attestation::
 A statement by an industry body about what a signer is, for example a news organisation.

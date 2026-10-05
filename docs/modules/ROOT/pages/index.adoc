@@ -7,7 +7,7 @@
 
 include::partial$abstract.adoc[]
 
-*Version 0.2 Pre-Draft Proposal* · Input to the CAWG 2.0 baseline requirements and designation criteria. Not adopted by the Creator Assertions Working Group.
+*Version 0.3 Pre-Draft Proposal* · Input to the CAWG 2.0 baseline requirements and designation criteria. Not adopted by the Creator Assertions Working Group.
 
 IMPORTANT: This document is a working proposal. Requirements written with MUST, SHOULD and MAY describe the proposed design; they are not yet requirements of any CAWG specification. Values shown as *[TBD]* are for the working group to decide.
 
@@ -36,6 +36,8 @@ include::partial$designation/index.adoc[]
 include::partial$validators/index.adoc[]
 
 include::partial$transition/index.adoc[]
+
+include::partial$identity-assertion-changes.adoc[]
 
 include::partial$open-questions.adoc[]
 

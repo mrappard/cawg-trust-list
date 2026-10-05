@@ -2,13 +2,44 @@
 
 Inconsistent validators could fragment the ecosystem: the same identity assertion could be trusted by one validator and not another. These requirements aim to make validator behaviour consistent wherever designated partners are concerned.
 
+In this section, the _time of signing_ is the time established by a trusted time stamp, or the current time if no trusted time stamp is present.
+
+=== Loading trust sources
+
 A validator that claims to follow this framework:
 
 * MUST, by default, trust the identity attestation partners in the designation register, using the trust lists the register points to;
-* MUST apply each partner's trust anchor configurations, including `notBefore` and `notAfter`, using the time of signing established by a trusted time stamp (or the current time, if no time stamp is present);
-* for X.509 credentials, MUST accept a certificate as trusted through a partner only if it contains `id-kp-documentSigning`, contains one of that partner's certificate policy OIDs, and chains to one of that partner's trust anchor configurations in effect at the time of signing;
+* SHOULD refresh the designation register and partners' lists at least every *[TBD]*; and
+* MAY let users add or remove trust sources, but MUST make clear in its results when the outcome depends on user configuration rather than the designation register.
+
+=== Designation and anchor validity
+
+A validator MUST treat a credential as trusted through a partner only if the time of signing falls inside *both*:
+
+* one of the partner's designation intervals in the designation register; and
+* the validity period of the trust anchor configuration the credential chains to (its `notBefore` and `notAfter`, where present).
+
+If a trust anchor configuration has no `notBefore`, the start of the designation interval applies. If it has no `notAfter`, the end of the designation interval (if any) applies.
+
+A time of signing that falls while a designation is suspended, or before it first started, MUST NOT result in trust through that partner.
+
+For X.509 credentials, a validator MUST additionally require that the certificate contains `id-kp-documentSigning`, contains one of that partner's certificate policy OIDs, and chains to one of that partner's trust anchor configurations.
+
+=== Revocation and invalidity
+
+A validator:
+
+* MUST treat a credential as untrusted for any identity assertion whose time of signing is at or after the credential's invalidity date, where one is published, even if the assertion was time-stamped before the revocation time;
+* MUST NOT rely only on a stapled status response to establish that a credential has not been revoked for key compromise. If the validator is online, it SHOULD obtain current status from the issuer;
+* MUST, where status could not be established (no response, an `unknown` response, or the validator is offline with no stapled response), report that revocation status was not established alongside any trust result, rather than presenting the identity as trusted without qualification; and
+* MUST treat an X.509 certificate with no Authority Information Access OCSP URL as not conforming to the X.509 profile, and MUST NOT treat it as trusted through a partner.
+
+=== Reporting
+
+A validator:
+
 * MUST report outcomes using the status codes in the identity assertion specification (for example, `cawg.x509.credential.trusted` and `cawg.x509.credential.untrusted`), so that results are comparable across validators;
-* MUST NOT present a role attestation as an identity attestation, or the reverse;
-* SHOULD refresh the designation register and partners' lists at least every *[TBD]*;
-* MAY let users add or remove trust sources, but MUST make clear in its results when the outcome depends on user configuration rather than the designation register; and
+* MUST NOT present a role attestation as an identity attestation, or the reverse; and
 * MUST continue to use the C2PA TSA Trust List for time stamps and MAY support a private credential store, as the identity assertion specification already provides.
+
+NOTE: Some of these requirements go beyond what identity assertion 1.3 specifies. See <<_changes_needed_in_the_identity_assertion_specification>>.

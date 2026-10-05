@@ -7,6 +7,10 @@ _This section is non-normative._
 |===
 | Version | Date | Changes
 
+| 0.3
+| 5 October 2026
+| Revocation for key compromise or mis-issuance now uses an invalidity date, so signatures made with a stolen key after compromise are not trusted. Validators enforce designation intervals from the register (including suspension and reinstatement) as well as trust anchor dates. X.509 certificates must carry an OCSP URL, and validators must report when revocation status was not established. Added the list of changes needed in the identity assertion specification.
+
 | 0.2
 | 5 October 2026
 | Restructured around CAWG's two-layer trust governance model: CAWG sets baseline requirements and designates external trust governance partners, and does not operate trust lists or CAs. Separated identity from role, and trust from CAWG membership. Added credential-type profiles (X.509, vLEI placeholder), designation criteria and validator requirements. Updated for CAWG's move to the Joint Development Foundation and the proposed 31 August 2027 interim end date.

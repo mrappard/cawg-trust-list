@@ -16,7 +16,9 @@ _This section is non-normative._
 . *List format.* Should partners use one machine-readable format, ideally shared with the C2PA Trust List, so validators need only one parser?
 . *vLEI.* How do vLEI credentials appear in identity assertions, and how do validators learn which vLEI issuers to trust?
 . *Roles.* How are role attestations expressed and linked to identity attestations in an identity assertion?
-. *Baseline values.* Maximum credential validity, revocation deadline, register refresh interval and designation period (marked *[TBD]* in this document).
+. *Baseline values.* Maximum credential validity, revocation deadline, how long status information stays available after expiry, register refresh interval and designation period (marked *[TBD]* in this document).
+. *Invalidity date limits.* Beyond requiring evidence, should there be a limit on how far back an issuer may set an invalidity date without its partner's approval?
+. *Offline validation.* When status cannot be established, is a qualified "trusted, status not established" result enough, or should some uses (for example, newsroom verification) require a hard failure?
 
 === Ecosystem
 

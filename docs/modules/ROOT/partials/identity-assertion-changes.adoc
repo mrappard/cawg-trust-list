@@ -1,0 +1,34 @@
+== Changes needed in the identity assertion specification
+
+_This section is non-normative._
+
+Some requirements in this framework can only take effect if the identity assertion specification's validation procedure changes too. These changes are proposed for CAWG 2.0. Section names refer to identity assertion version 1.3.
+
+[cols="1,2,2",options="header"]
+|===
+| Section (v1.3) | Current behaviour | Proposed change
+
+| Trust model for X.509 certificates
+| The CAWG trust configuration lists EKUs, certificate policies and trust anchors, but defines no source for them beyond the interim trust model.
+| Reference this framework and the designation register as the default source, and require validators to enforce designation intervals as well as trust anchor dates (<<_designation_and_anchor_validity>>).
+
+| Validate the credential revocation information
+| "If a certificate does not support revocation status, or the certificate issuer did not provide a method to query its revocation status, the validator MUST treat the credential as not revoked."
+| For certificates trusted through a designated partner, a certificate with no status method does not conform to the X.509 profile and is not trusted through that partner. The existing rule can remain for user-configured trust sources.
+
+| Determining revocation through OCSP responses in the C2PA Manifest Store
+| A stapled `good` response, with a trusted time stamp, is enough to issue `cawg.x509.ocsp.not_revoked`.
+| A stapled response establishes status at the time of signing only. Where the validator is online, it should also obtain current status, so that a later revocation for key compromise is found.
+
+| Determining revocation from online OCSP response
+| A `revoked` response is accepted as "not revoked at the time of signing" if the `revocationTime` is after the attested time.
+| If the response includes an Invalidity Date (RFC 5280, Section 5.3.2), compare the attested time with the invalidity date rather than the revocation time. An attested time at or after the invalidity date results in `cawg.identity.credential_revoked`.
+
+| Status codes
+| `cawg.x509.ocsp.unknown`, `cawg.x509.ocsp.inaccessible` and `cawg.x509.ocsp.skipped` are informational, and do not qualify a `trusted` result.
+| Define how a validator reports that revocation status was not established alongside a trust result, possibly with a new status code (name to be agreed).
+
+| Interim trust model additions
+| Ends for identity assertions generated after 31 March 2027.
+| Update the end date if the proposed extension to 31 August 2027 is adopted, and point to this framework as the replacement.
+|===

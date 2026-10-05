@@ -40,11 +40,21 @@ A certificate issued under a designated partner's program:
 * MUST contain the subject's verified legal name in the subject `organizationName` (O) attribute for organisational subjects, or in `commonName` (CN) for individuals;
 * SHOULD contain the subject's LEI, where one exists, in a field to be agreed;
 * MUST use a signature algorithm on the allowed list in Section 13.2, "Digital signatures," of the C2PA technical specification; and
-* SHOULD contain an Authority Information Access extension with an OCSP responder URL.
+* MUST contain an Authority Information Access extension (RFC 5280, Section 4.2.2.1) with an OCSP responder URL.
+
+The same Authority Information Access requirement applies to every intermediate CA certificate between the end-entity certificate and the trust anchor.
 
 ==== Revocation
 
-Credential issuers MUST operate an OCSP responder. Signers SHOULD staple OCSP responses in the `rVals` header, as the identity assertion specification already supports.
+Credential issuers MUST operate an OCSP responder (RFC 6960) at the URL given in each certificate, and MUST keep it answering for at least the period required by the baseline requirements after the certificate expires.
+
+Signers SHOULD staple OCSP responses in the `rVals` header, as the identity assertion specification already supports. A stapled response only shows status at the time of signing; it does not reflect a later revocation for key compromise.
+
+When revoking a certificate, the credential issuer:
+
+* MUST set the `revocationReason` to `keyCompromise` when the subject's key is known or suspected to be compromised, and to `cACompromise` when an issuing CA's key is compromised;
+* for revocation for key compromise or mis-issuance, MUST include the Invalidity Date extension (RFC 5280, Section 5.3.2) in OCSP responses for the certificate, set as required by the baseline requirements; and
+* for routine revocation, SHOULD use the most specific applicable reason (for example, `affiliationChanged`, `superseded` or `cessationOfOperation`) and MUST NOT include an Invalidity Date earlier than the revocation time.
 
 ==== Publication format
 

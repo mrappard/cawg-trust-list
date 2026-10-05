@@ -28,7 +28,8 @@ The draft starts at [docs/modules/ROOT/pages/index.adoc](docs/modules/ROOT/pages
 5. Designation: criteria, process, terms, suspension and withdrawal, designation register
 6. Validator requirements
 7. Transition from the interim trust model
-8. Open questions
+8. Changes needed in the identity assertion specification
+9. Open questions
 
 ## Governance
 
