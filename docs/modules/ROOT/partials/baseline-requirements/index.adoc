@@ -1,0 +1,43 @@
+== Baseline requirements
+
+These requirements apply to every trust governance partner designated for identity attestation, whatever the credential type. Credential-type profiles (<<_credential_type_profiles>>) say how each requirement is met for a particular credential type.
+
+=== Identity verification
+
+* A credential issuer MUST verify the legal existence and name of an organisational subject using reliable, independent sources, to a level at least equivalent to organisation validation under the CA/Browser Forum S/MIME Baseline Requirements.
+* A credential issuer that names an individual MUST verify that individual's identity to a level at least equivalent to individual validation under the same requirements.
+* If an individual acts on behalf of an organisation, the credential issuer MUST verify the organisation's authorisation (comparable to sponsor validation).
+* A credential issuer SHOULD record a globally unique organisational identifier, such as a Legal Entity Identifier (LEI), where one exists.
+* A credential issuer MUST NOT issue a credential based on mailbox or domain control alone.
+
+=== Credential content
+
+* A credential MUST identify the subject by its verified legal name.
+* A credential MUST NOT contain role attestations (such as "news organisation") unless the issuer is also designated for role attestation in that scope.
+* A credential MUST be usable only for signing; credentials that can also issue other credentials MUST NOT be used to sign identity assertions.
+
+=== Key protection
+
+* Signer private keys SHOULD be generated and held in hardware-backed key storage.
+* A credential issuer MUST revoke a credential on evidence of key compromise.
+
+=== Status and revocation
+
+* A credential issuer MUST provide a means for validators to determine whether a credential was valid at the time of signing.
+* A credential issuer MUST revoke a credential within *[TBD]* of learning that it was issued in error, its key was compromised, or the subject's verified information is no longer accurate.
+* Revocation MUST NOT invalidate identity assertions that a trusted time stamp shows were signed before revocation.
+
+=== Validity period
+
+* A credential's validity period MUST NOT exceed *[TBD]*.
+
+=== Audit and supervision
+
+* A trust governance partner MUST supervise the credential issuers in its scope and remove those that stop meeting these requirements.
+* Credential issuers MUST be audited at least annually against a recognised audit scheme appropriate to the credential type (for example, WebTrust for CAs or ETSI EN 319 411-1 for X.509), or an equivalent the designation agreement accepts.
+
+=== Publication
+
+* A trust governance partner MUST publish its trust list at a stable HTTPS URL, in the form required by the relevant credential-type profile.
+* A trust governance partner MUST keep a public change log, and MUST end trust in an issuer by recording an end date rather than deleting its entry, so that past signatures remain verifiable.
+* A trust governance partner SHOULD sign its published trust list.

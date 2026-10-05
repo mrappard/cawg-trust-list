@@ -2,24 +2,35 @@
 
 The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY and OPTIONAL in this document are to be interpreted as described in RFC 2119 and RFC 8174 when, and only when, they appear in all capitals.
 
-CAWG trust configuration::
-The set of accepted EKUs, with their accepted certificate policies and trust anchors, that a validator maintains for `cawg.x509.cose` signers, as defined in the CAWG identity assertion specification.
+Baseline requirements::
+The minimum requirements, independent of credential type, that identity assurance must meet to be recognised under this framework (<<_baseline_requirements>>).
 
-CAWG Trust List::
-The list of trust anchor configurations published under this document for the `id-kp-documentSigning` EKU.
+Credential issuer::
+An entity that issues credentials binding a signing key to a verified identity, such as a certification authority or a vLEI qualified issuer.
 
-CAWG certificate policy::
-The certificate policy defined in <<_cawg_certificate_policy>>, identified by the CAWG certificate policy OID.
+Credential-type profile::
+The application of the baseline requirements to a particular credential type, such as X.509 certificates (<<_credential_type_profiles>>).
 
-CAWG member::
-An organisation that is a participant in the Creator Assertions Working Group under the DIF CAWG Charter and Operating Addendum.
-_(Open question: see <<_open_questions>>.)_
+Designation::
+CAWG's formal recognition that a trust governance partner's framework meets the baseline requirements and the designation criteria, for a stated scope and period (<<_designation>>).
+
+Designation agreement::
+The agreement between CAWG and a trust governance partner setting out the scope, terms and obligations of a designation.
+
+Designation register::
+CAWG's published record of current and past designations, with each partner's scope, period and the location of its trust list.
+
+Identity attestation::
+A statement by a credential issuer about who a signer is.
+
+Role attestation::
+A statement by an industry body about what a signer is, for example a news organisation.
+
+Trust governance partner::
+An external organisation that operates a trust list, registry or conformance program and has been designated under this framework.
 
 Trust anchor configuration::
 An X.509 CA certificate together with optional `notBefore` and `notAfter` date/times limiting the period for which it is trusted, as in the C2PA technical specification.
 
-List operator::
-The body responsible for maintaining, signing and publishing the CAWG Trust List.
-
-Participating CA::
-A certification authority whose trust anchor is included in the CAWG Trust List.
+CAWG trust configuration::
+The set of accepted EKUs, with their accepted certificate policies and trust anchors, that a validator maintains for `cawg.x509.cose` signers, as defined in the CAWG identity assertion specification.

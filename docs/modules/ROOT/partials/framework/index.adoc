@@ -1,0 +1,50 @@
+== Framework overview
+
+_This section is non-normative._
+
+=== Parties
+
+[cols="1,3",options="header"]
+|===
+| Party | Responsibility
+
+| CAWG
+| Writes the baseline requirements, credential-type profiles and designation criteria. Reviews applications, grants, suspends and withdraws designations. Publishes the designation register. Does not operate trust lists, registries, CAs or conformance programs.
+
+| Trust governance partner
+| Operates a trust list, registry or conformance program that meets the baseline requirements. Admits and supervises credential issuers within its scope. Publishes its trust list in the form required by the relevant credential-type profile.
+
+| Credential issuer
+| Verifies signer identity and issues credentials (for example, a certification authority under a partner's program, or a vLEI qualified issuer).
+
+| Industry body
+| Defines and attests roles for its industry. May be designated for role attestation.
+
+| Signer (named actor)
+| Holds a credential from a recognised issuer and uses it to sign identity assertions.
+
+| Validator
+| Loads designated partners' trust lists and evaluates identity assertions consistently (<<_validator_requirements>>).
+|===
+
+=== How trust flows
+
+[mermaid]
+....
+flowchart TD
+  CAWG["CAWG<br/>baseline requirements<br/>designation criteria"] -- designates --> P["Trust governance partner<br/>(e.g. X.509 program, GLEIF)"]
+  CAWG -- designates --> IB["Industry body<br/>(e.g. IPTC)"]
+  P -- admits and supervises --> CI["Credential issuer"]
+  CI -- issues identity credential --> S["Signer"]
+  IB -- attests role --> S
+  S -- signs identity assertion --> A["C2PA asset"]
+  CAWG -- publishes --> R["Designation register"]
+  R -- points validators to --> TL["Partner trust lists"]
+  P -- publishes --> TL
+  V["Validator"] -- loads --> TL
+  V -- validates --> A
+....
+
+=== Relationship to C2PA
+
+CAWG assertions live in C2PA manifests, and this framework reuses C2PA mechanisms wherever possible: trust anchor configurations with `notBefore`/`notAfter`, the C2PA TSA Trust List, and OCSP-based revocation. CAWG remains separate from C2PA but intends to pursue a formal liaison, which could cover shared list formats and tooling.

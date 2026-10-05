@@ -2,11 +2,24 @@
 
 _This section is non-normative._
 
-. *OID arc.* Should DIF obtain an IANA Private Enterprise Number, or should the CAWG use an arc delegated by another body (for example, the C2PA)?
-. *Certificate policy OID or EKU.* Is a certificate policy OID under `id-kp-documentSigning` sufficient, or does the CAWG need its own EKU, as the C2PA has?
-. *Issuance model.* A single CAWG-operated CA, or multiple participating CAs?
-. *List operator.* DIF, a CAWG committee, or a delegated operator?
-. *Membership definition.* Which participants qualify (DIF members participating in CAWG, signatories of the CAWG charter, or a broader set), and can members sponsor non-member signers such as their employees or contractors?
-. *Membership feed.* How do participating CAs learn about membership changes, and how quickly must they revoke?
-. *List format.* Should the machine-readable format be shared with the C2PA Trust List and the IPTC list, so validators can use one parser?
-. *Deadline.* Can the list be operational before 31 March 2027, or does the interim trust model need to be extended?
+=== Governance
+
+. *Conformance scope.* Where does CAWG-level conformance end and industry-level conformance begin? This needs an owner.
+. *Review group.* Who reviews designation applications, how are conflicts of interest handled (for example, a CA participant reviewing a competing CA), and how are decisions appealed?
+. *Staffing.* CAWG starts as an unfunded project. Who does the work of reviewing applications, maintaining the designation register and handling incidents?
+. *Liability and terms.* What liability does CAWG take on by designating a partner, and what must designation agreements say? This needs Linux Foundation legal review.
+. *Designation register.* Is publishing the register consistent with the decision that CAWG does not operate registries, and who hosts it?
+
+=== Technical
+
+. *Common policy OID.* Is each partner's own certificate policy OID enough, or should CAWG define a common OID that partners assert alongside their own? (A common OID would need an OID arc for the new JDF project.)
+. *List format.* Should partners use one machine-readable format, ideally shared with the C2PA Trust List, so validators need only one parser?
+. *vLEI.* How do vLEI credentials appear in identity assertions, and how do validators learn which vLEI issuers to trust?
+. *Roles.* How are role attestations expressed and linked to identity attestations in an identity assertion?
+. *Baseline values.* Maximum credential validity, revocation deadline, register refresh interval and designation period (marked *[TBD]* in this document).
+
+=== Ecosystem
+
+. *Validator adoption.* Which validator implementations will commit to loading the designation register by default?
+. *C2PA liaison.* Does the liaison cover sharing list formats, tooling, or partners already on the C2PA Trust List?
+. *Deadline.* Is the end date for the interim model 31 March 2027 or 31 August 2027, and can a first designation be in place before it?

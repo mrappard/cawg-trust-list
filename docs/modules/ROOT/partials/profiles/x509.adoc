@@ -1,0 +1,80 @@
+=== X.509 certificates
+
+This profile applies the baseline requirements to `cawg.x509.cose` signers and populates the CAWG trust configuration defined in the identity assertion specification.
+
+==== Mapping to the CAWG trust configuration
+
+For the `id-kp-documentSigning` EKU, a validator's CAWG trust configuration includes, for each designated X.509 trust governance partner:
+
+* the partner's certificate policy OID(s) in the list of accepted certificate policies; and
+* the partner's trust anchor configurations in the list of trust anchors.
+
+[NOTE]
+.Design choice: partner certificate policies rather than a CAWG EKU
+====
+The C2PA distinguishes its signers with a dedicated EKU (`c2pa-kp-claimSigning`).
+The CAWG trust configuration already pairs each EKU with accepted certificate policies, and already requires `id-kp-documentSigning`.
+Under this profile, each designated partner identifies conforming certificates with its own certificate policy OID, so CAWG does not need to allocate an EKU or OID arc.
+Whether CAWG should also define a common policy OID that partners assert alongside their own is an open question (<<_open_questions>>).
+====
+
+==== Trust anchor configurations
+
+Each trust anchor in a partner's list MUST be published as a trust anchor configuration, as in the C2PA technical specification:
+
+* The configuration MUST include the X.509 certificate for the trust anchor.
+* The configuration SHOULD include a `notBefore` date/time, before which there is no trust for that configuration.
+* If trust in the configuration has ended, the configuration SHOULD include a `notAfter` date/time, after which there is no trust for that configuration.
+
+If a `notBefore` date/time is present, the configuration MUST NOT be used for identity assertion signatures whose time stamp (or current time, if no time stamp is present) is before that date/time.
+If a `notAfter` date/time is present, the configuration MUST NOT be used for identity assertion signatures whose time stamp (or current time, if no time stamp is present) is after that date/time.
+
+==== Certificate profile
+
+A certificate issued under a designated partner's program:
+
+* MUST be an end-entity certificate: the `cA` boolean in Basic Constraints MUST NOT be asserted, and `keyCertSign` MUST NOT be asserted in Key Usage;
+* MUST contain the Extended Key Usage extension with `id-kp-documentSigning` (1.3.6.1.5.5.7.3.36);
+* MUST NOT contain `anyExtendedKeyUsage` (2.5.29.37.0);
+* MUST contain the partner's certificate policy OID in the Certificate Policies extension;
+* MUST contain the subject's verified legal name in the subject `organizationName` (O) attribute for organisational subjects, or in `commonName` (CN) for individuals;
+* SHOULD contain the subject's LEI, where one exists, in a field to be agreed;
+* MUST use a signature algorithm on the allowed list in Section 13.2, "Digital signatures," of the C2PA technical specification; and
+* SHOULD contain an Authority Information Access extension with an OCSP responder URL.
+
+==== Revocation
+
+Credential issuers MUST operate an OCSP responder. Signers SHOULD staple OCSP responses in the `rVals` header, as the identity assertion specification already supports.
+
+==== Publication format
+
+A partner MUST publish:
+
+* a PEM bundle of its trust anchor certificates, for compatibility with existing tooling (as the C2PA and IPTC do); and
+* a machine-readable document carrying each configuration's `notBefore`/`notAfter`, the partner's certificate policy OID(s), a list version and a publication date.
+
+The following is an illustrative, non-normative example. A common format, ideally shared with the C2PA Trust List, is an open question.
+
+[source,json]
+----
+{
+  "partner": "Northwind Traders Trust Program",
+  "listVersion": 3,
+  "published": "2027-01-15T00:00:00Z",
+  "eku": "1.3.6.1.5.5.7.3.36",
+  "certificatePolicies": ["<partner certificate policy OID>"],
+  "trustAnchors": [
+    {
+      "name": "Northwind Traders Identity Root 2026",
+      "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+      "notBefore": "2026-12-01T00:00:00Z"
+    },
+    {
+      "name": "Fabrikam Identity Root 2025",
+      "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+      "notBefore": "2026-12-01T00:00:00Z",
+      "notAfter": "2028-06-30T23:59:59Z"
+    }
+  ]
+}
+----

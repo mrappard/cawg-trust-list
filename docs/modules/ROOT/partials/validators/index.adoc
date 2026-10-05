@@ -1,0 +1,14 @@
+== Validator requirements
+
+Inconsistent validators could fragment the ecosystem: the same identity assertion could be trusted by one validator and not another. These requirements aim to make validator behaviour consistent wherever designated partners are concerned.
+
+A validator that claims to follow this framework:
+
+* MUST, by default, trust the identity attestation partners in the designation register, using the trust lists the register points to;
+* MUST apply each partner's trust anchor configurations, including `notBefore` and `notAfter`, using the time of signing established by a trusted time stamp (or the current time, if no time stamp is present);
+* for X.509 credentials, MUST accept a certificate as trusted through a partner only if it contains `id-kp-documentSigning`, contains one of that partner's certificate policy OIDs, and chains to one of that partner's trust anchor configurations in effect at the time of signing;
+* MUST report outcomes using the status codes in the identity assertion specification (for example, `cawg.x509.credential.trusted` and `cawg.x509.credential.untrusted`), so that results are comparable across validators;
+* MUST NOT present a role attestation as an identity attestation, or the reverse;
+* SHOULD refresh the designation register and partners' lists at least every *[TBD]*;
+* MAY let users add or remove trust sources, but MUST make clear in its results when the outcome depends on user configuration rather than the designation register; and
+* MUST continue to use the C2PA TSA Trust List for time stamps and MAY support a private credential store, as the identity assertion specification already provides.

@@ -1,5 +1,8 @@
-The link:https://cawg.io/identity/[CAWG identity assertion] allows a _named actor_ to sign an identity assertion with an X.509 certificate (signature type `cawg.x509.cose`).
-Validators decide whether to trust that certificate using the *CAWG trust configuration*: a set of accepted Extended Key Usage (EKU) values, each with accepted certificate policies and trust anchors.
+The link:https://cawg.io/identity/[CAWG identity assertion] lets a _named actor_ bind their identity to a C2PA asset.
+A validator can only treat that identity as trustworthy if it knows which credential issuers to rely on.
 
-This document proposes the *CAWG Trust List*: the certificate policy, trust anchors, and governance process that populate the CAWG trust configuration so that certificates issued to CAWG members can be recognised as trusted.
-It follows the model of the link:++https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_trust_lists++[C2PA Trust List].
+This document proposes the *CAWG Trust Framework*. CAWG sets the top-level framework and the *baseline requirements* that any identity assurance must meet, and decides which external *trust governance partners* qualify for recognition through *designation*.
+The designated partners, not CAWG, operate the trust lists, registries, conformance programs and industry-specific validation.
+
+The framework separates *who you are* (identity, attested under the baseline requirements) from *what you are* (roles such as news organisation or musician, attested by self-regulating industry bodies).
+It covers X.509 certificates and is designed to accommodate other credential types, such as the GLEIF verifiable Legal Entity Identifier (vLEI).

@@ -6,5 +6,12 @@ _This section is non-normative._
 [cols="1,1,4",options="header"]
 |===
 | Version | Date | Changes
-| 0.1 | 5 October 2026 | Initial pre-draft proposal.
+
+| 0.2
+| 5 October 2026
+| Restructured around CAWG's two-layer trust governance model: CAWG sets baseline requirements and designates external trust governance partners, and does not operate trust lists or CAs. Separated identity from role, and trust from CAWG membership. Added credential-type profiles (X.509, vLEI placeholder), designation criteria and validator requirements. Updated for CAWG's move to the Joint Development Foundation and the proposed 31 August 2027 interim end date.
+
+| 0.1
+| 5 October 2026
+| Initial pre-draft proposal for a CAWG-operated trust list.
 |===

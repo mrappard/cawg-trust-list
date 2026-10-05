@@ -1,4 +1,4 @@
-= CAWG Trust List
+= CAWG Trust Framework
 :toc: macro
 :toc-title:
 :sectanchors:
@@ -7,9 +7,9 @@
 
 include::partial$abstract.adoc[]
 
-*Version 0.1 Pre-Draft Proposal* · Not adopted by the Creator Assertions Working Group.
+*Version 0.2 Pre-Draft Proposal* · Input to the CAWG 2.0 baseline requirements and designation criteria. Not adopted by the Creator Assertions Working Group.
 
-IMPORTANT: This document is a working proposal. Requirements written with MUST, SHOULD and MAY describe the proposed design; they are not yet requirements of any CAWG specification.
+IMPORTANT: This document is a working proposal. Requirements written with MUST, SHOULD and MAY describe the proposed design; they are not yet requirements of any CAWG specification. Values shown as *[TBD]* are for the working group to decide.
 
 include::partial$common/license.adoc[]
 
@@ -25,11 +25,15 @@ include::partial$normative-references.adoc[]
 
 include::partial$terms-and-definitions.adoc[]
 
-include::partial$trust-list/index.adoc[]
+include::partial$framework/index.adoc[]
 
-include::partial$certificate-policy/index.adoc[]
+include::partial$baseline-requirements/index.adoc[]
 
-include::partial$governance/index.adoc[]
+include::partial$profiles/index.adoc[]
+
+include::partial$designation/index.adoc[]
+
+include::partial$validators/index.adoc[]
 
 include::partial$transition/index.adoc[]
 

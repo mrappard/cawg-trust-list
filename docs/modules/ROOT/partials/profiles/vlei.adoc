@@ -1,0 +1,12 @@
+=== Verifiable Legal Entity Identifier (vLEI)
+
+_This section is a placeholder._
+
+GLEIF is a candidate trust governance partner. The vLEI ecosystem already has its own governance framework, qualified issuers and verification model. This profile will say how vLEI credentials meet the baseline requirements and how they are carried in, or linked from, an identity assertion.
+
+Input is expected from the CAWG vLEI task force. Questions for this profile include:
+
+* which signature type in the identity assertion carries a vLEI-based signature, and whether a new signature type is needed;
+* how the vLEI governance framework maps to each baseline requirement;
+* how a validator learns which vLEI issuers are trusted (the equivalent of trust anchor configurations); and
+* how revocation status at the time of signing is established.

@@ -1,0 +1,64 @@
+== Designation
+
+Designation is how CAWG recognises an external organisation as a trust governance partner. CAWG decides which frameworks qualify; it does not take on the partner's operational responsibilities.
+
+=== Types of designation
+
+A designation has one of the following scopes:
+
+* *Identity attestation:* the partner's credential issuers attest who a signer is, to the baseline requirements, under a stated credential-type profile.
+* *Role attestation:* the partner (typically an industry body) attests what a signer is within a stated industry. A role attestation designation does not by itself make a signer's identity trusted.
+
+A single organisation MAY hold both kinds of designation.
+
+=== Designation criteria
+
+To be designated for identity attestation, an applicant:
+
+* MUST show that its framework meets every baseline requirement, under at least one credential-type profile;
+* MUST publish its governing policy (for X.509, a certificate policy following RFC 3647);
+* MUST have a defined process for admitting, supervising and removing credential issuers;
+* MUST meet the publication requirements of the baseline requirements and the relevant profile;
+* MUST have an incident-reporting process, and agree to notify CAWG of incidents affecting trust within *[TBD]*; and
+* MUST have the legal and operational capacity to meet its obligations for the full designation period.
+
+To be designated for role attestation, an applicant:
+
+* MUST be a recognised, self-regulating body for the industry in question;
+* MUST publish the criteria by which it attests the role; and
+* MUST meet the publication requirements of the baseline requirements.
+
+=== Process
+
+. *Application:* the applicant submits its governing policy, audit evidence and a mapping of its framework to each baseline requirement.
+. *Review:* a CAWG review group *[TBD: composition and conflict-of-interest rules]* assesses the application and may ask for more information.
+. *Decision:* CAWG grants or refuses designation, with reasons.
+. *Agreement:* CAWG and the partner sign a designation agreement setting out the scope, period and terms.
+. *Publication:* CAWG adds the designation to the designation register, with its start date.
+
+=== Designation terms
+
+A designation agreement MUST state:
+
+* the scope (identity or role attestation, credential-type profiles, and any industry or geography);
+* the designation period, which MUST NOT exceed *[TBD]* before renewal;
+* the partner's obligations under the baseline requirements;
+* incident-reporting and cooperation obligations; and
+* the grounds and process for suspension and withdrawal.
+
+=== Suspension and withdrawal
+
+CAWG MAY suspend or withdraw a designation if the partner stops meeting the designation criteria, fails to report or remedy an incident, or asks to withdraw.
+
+Withdrawal MUST be recorded in the designation register with an end date. Partners' trust anchor configurations MUST be given a matching `notAfter` rather than removed, so that identity assertions signed while the designation was in effect remain verifiable.
+
+=== Designation register
+
+CAWG publishes a designation register listing, for each current and past designation:
+
+* the partner's name and scope;
+* the start date and, if applicable, end date;
+* the location of the partner's published trust list; and
+* the applicable credential-type profile.
+
+The register is a record of CAWG's recognition decisions. It is not itself a trust list, and CAWG does not operate the partners' lists.

@@ -1,8 +1,8 @@
 # Use this playbook when building locally.
 
 site:
-  title: CAWG Trust List
-  start_page: trust-list::index.adoc
+  title: CAWG Trust Framework
+  start_page: trust-framework::index.adoc
 content:
   sources:
   - url: .

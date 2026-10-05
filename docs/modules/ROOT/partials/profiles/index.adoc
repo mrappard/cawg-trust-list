@@ -1,0 +1,5 @@
+== Credential-type profiles
+
+include::x509.adoc[]
+
+include::vlei.adoc[]

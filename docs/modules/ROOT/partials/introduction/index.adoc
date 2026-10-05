@@ -4,38 +4,47 @@ _This section is non-normative._
 
 === Background
 
-Version 1.3 of the link:https://cawg.io/identity/[CAWG identity assertion] specification defines a *CAWG trust configuration* for X.509 credentials. A validator maintains a list of accepted Extended Key Usage (EKU) values and, for each accepted EKU, a list of accepted certificate policy (CP) values and a list of trust anchors.
+Version 1.3 of the link:https://cawg.io/identity/[CAWG identity assertion] specification defines a *CAWG trust configuration* for X.509 credentials (signature type `cawg.x509.cose`). A validator maintains a list of accepted Extended Key Usage (EKU) values and, for each one, a list of accepted certificate policies and a list of trust anchors.
 
-The specification requires `id-kp-documentSigning` (1.3.6.1.5.5.7.3.36) to be an accepted EKU, but states that no certificate policy or trust anchors are required for it "at this time." In practice, trust currently comes from the specification's _interim trust model_, which accepts:
+The specification requires `id-kp-documentSigning` (1.3.6.1.5.5.7.3.36) as an accepted EKU, but defines no certificate policies or trust anchors for it. In practice, trust comes from an _interim trust model_ that accepts:
 
-* certificates with the `id-kp-emailProtection` EKU and an organisation-, sponsor- or individual-validated S/MIME certificate policy from the CA/Browser Forum, chaining to the Mozilla root store with the email trust bit enabled; and
+* publicly trusted S/MIME certificates (organisation-, sponsor- or individual-validated) chaining to the Mozilla root store with the email trust bit enabled; and
 * certificates on, or chaining to, the IPTC Origin Verified News Publishers List.
 
-The interim trust model applies only to identity assertions generated (as established by a trusted time stamp) on or before 31 March 2027.
+The interim trust model applies only to identity assertions generated on or before 31 March 2027. That date is provisional, and an extension to 31 August 2027 has been proposed for CAWG 2.0. The interim model was always a stopgap: it relies on S/MIME governance designed for email, not for content provenance.
 
-=== Problem
+=== Two layers of trust governance
 
-Publicly trusted S/MIME certificates establish control of a mailbox and, at higher validation levels, the identity of an organisation or individual. They do not establish that the signer is a CAWG member, and trusting the public S/MIME roots means trusting every S/MIME CA for every subscriber.
+CAWG has decided that trust governance has two layers:
 
-Once the interim trust model expires, a validator conforming to the identity assertion specification has no populated trust anchors for `cawg.x509.cose` signers unless the CAWG trust configuration is filled in.
+. *CAWG* sets the top-level framework and the baseline requirements, and decides which frameworks qualify for recognition.
+. *External organisations* operate trust lists, registries, conformance programs and industry-specific validation.
 
-=== Proposal
+CAWG does not operate registries or conformance programs itself. This document defines the CAWG layer: the baseline requirements, the credential-type profiles that apply them, and the designation process by which external organisations are recognised as *trust governance partners*.
 
-This document proposes the *CAWG Trust List*, modelled on the C2PA Trust List, consisting of:
+=== Identity and role
 
-. a *CAWG certificate policy* identified by a CAWG-assigned OID, which defines how CAs vet CAWG membership and what the certificates contain (<<_cawg_certificate_policy>>);
-. a published list of *trust anchor configurations* for the `id-kp-documentSigning` EKU, each with optional `notBefore`/`notAfter` dates (<<_cawg_trust_list>>);
-. a *governance process* for admitting and removing CAs and operating the list (<<_governance>>); and
-. a *transition plan* from the interim trust model (<<_transition_from_the_interim_trust_model>>).
+The framework separates two questions:
+
+* *Who you are* (identity): the legal entity or individual behind a signature. Credential issuers recognised under this framework attest identity, to the baseline requirements.
+* *What you are* (role): for example, a news organisation, broadcaster or musician. Self-regulating industry bodies (for example, the IPTC for news publishers) attest roles. They may be designated under this framework for that purpose, but role attestation is a separate layer on top of identity.
+
+=== Trust is not CAWG membership
+
+Being trusted under this framework does not mean being a CAWG participant, and being a CAWG participant does not make a signer trusted. Membership of CAWG (who participates, who votes) is governed by the CAWG project and working group charters. The trust framework is about whether a signer's identity has been verified by a recognised partner. A news organisation that has never heard of CAWG can be a trusted signer; a CAWG participant whose credential issuer is not designated is not.
 
 === Scope
 
 In scope:
 
-* trust in X.509 certificates used for `cawg.x509.cose` identity assertion signatures.
+* baseline requirements for identity assurance used in CAWG identity assertions;
+* profiles applying those requirements to X.509 certificates and, in future, other credential types;
+* criteria and terms for designating trust governance partners; and
+* requirements on validators for using designated partners' trust lists.
 
 Out of scope:
 
-* trust in identity claims aggregation and other verifiable-credential-based signature types;
-* Time Stamping Authority trust and private credential storage, which the identity assertion specification already delegates to the C2PA technical specification;
-* any judgement about the truthfulness of content signed by a trusted member.
+* operating any trust list, registry, certification authority or conformance program;
+* industry-specific role definitions, which designated industry bodies define;
+* Time Stamping Authority trust and private credential storage, which the identity assertion specification already delegates to the C2PA technical specification; and
+* any judgement about the truthfulness of signed content.

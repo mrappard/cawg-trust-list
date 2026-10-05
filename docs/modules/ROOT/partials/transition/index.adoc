@@ -2,16 +2,44 @@
 
 _This section is non-normative._
 
-The interim trust model in the CAWG identity assertion specification ends for identity assertions generated after 31 March 2027. This gives a fixed deadline for the CAWG Trust List.
+The interim trust model (publicly trusted S/MIME certificates and the IPTC Origin Verified News Publishers List) covers identity assertions generated on or before 31 March 2027. That date is provisional; an extension to 31 August 2027 has been proposed for inclusion in CAWG 2.0. The framework needs to be in place, with at least one designated partner, before whichever date applies.
 
-A possible timeline:
+=== Planned timeline
 
-. Working group agrees the issuance model, certificate policy OID and list operator.
-. First participating CA admitted and the first version of the CAWG Trust List published, with `notBefore` set to the date of publication.
-. Validator implementations ship the CAWG Trust List in their default configuration.
-. Members obtain certificates under the CAWG certificate policy and switch identity assertion signing to them, well before 31 March 2027.
-. After 31 March 2027, newly generated identity assertions are trusted only through the CAWG trust configuration (including the CAWG Trust List) or user-configured trust.
+This timeline follows CAWG's plan as of 5 October 2026 and is subject to change.
 
-Identity assertions signed under the interim trust model with a trusted time stamp on or before 31 March 2027 remain valid after that date; the transition does not affect them.
+[cols="1,3",options="header"]
+|===
+| When | What
 
-The identity assertion specification may need a minor update to reference the CAWG Trust List and the CAWG certificate policy OID once they exist.
+| 30 October 2026
+| Unified CAWG 2.0 draft circulated for review.
+
+| Mid to late November 2026
+| New technical working group convenes to review and approve CAWG 2.0.
+
+| Late November to December 2026
+| Baseline requirements and designation criteria drafted (this document is proposed as input). Designation conversations begin with X.509 candidates and GLEIF.
+
+| Mid-December 2026
+| CAWG operational as an independent Joint Development Foundation project.
+
+| Q1 2027
+| First designation agreement(s) with trust governance partners.
+
+| 31 March 2027 (or 31 August 2027 if extended)
+| Interim trust model ends for newly generated identity assertions.
+|===
+
+=== Moving partners across
+
+Partners already relied on by the interim trust model are natural first candidates:
+
+* The *IPTC* could be designated for role attestation (news publishers) and, if its list meets the baseline requirements, for identity attestation.
+* *S/MIME certificate authorities* cannot be designated as a group, because S/MIME governance is not designed for this purpose. Individual CAs, or programs that supervise them, could apply for designation under the X.509 profile.
+
+=== Effect on existing assertions
+
+Identity assertions signed under the interim trust model with a trusted time stamp before the end date remain valid after it. The transition affects only newly generated assertions.
+
+The identity assertion specification will need an update (expected in CAWG 2.0) to reference this framework, the designation register, and any revised end date for the interim model.
