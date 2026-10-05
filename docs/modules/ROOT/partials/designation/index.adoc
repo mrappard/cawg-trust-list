@@ -56,7 +56,28 @@ Suspension, reinstatement and withdrawal:
 * MUST take effect from the recorded time onwards, and MUST NOT be backdated. Identity assertions whose trusted time of signing falls inside an interval in which the designation was in effect remain trusted (subject to the credential's own status); and
 * for withdrawal, SHOULD be matched by the partner giving its trust anchor configurations a corresponding `notAfter`. Validators do not depend on this, because they enforce the register's intervals directly (<<_validator_requirements>>).
 
-NOTE: Suspension and withdrawal are not the mechanism for invalidating signatures made with a compromised key or a mis-issued credential. That is done by the credential issuer recording an invalidity date (<<_status_and_revocation>>), which applies to specific credentials rather than to a whole partner.
+NOTE: Suspension and withdrawal are not the mechanism for invalidating past signatures. For an individual credential, the credential issuer records an invalidity date (<<_status_and_revocation>>). Where the partner or an issuer cannot be relied on to do that, CAWG uses emergency distrust.
+
+=== Emergency distrust
+
+Emergency distrust lets CAWG stop validators trusting a specific trust anchor or issuing CA from a stated time, which may be in the past, without the cooperation of the affected partner. It is for situations in which a partner or credential issuer cannot be relied on to publish revocations, for example:
+
+* a trust anchor or issuing CA private key is compromised;
+* a credential issuer has mis-issued credentials and has not revoked them; or
+* a partner or issuer is acting in bad faith or has stopped operating.
+
+An emergency distrust entry:
+
+* MUST identify the affected trust anchor or CA certificate by the SHA-256 hash of the certificate;
+* MUST carry a *distrust-after* date/time. Identity assertions whose trusted time of signing is at or after that time MUST NOT be trusted through the affected certificate. The distrust-after time MAY be earlier than the time the entry is published, and SHOULD be set to the earliest time from which trust can no longer be relied on;
+* MUST record the reason and the date the entry was published; and
+* MUST NOT be removed once published. If it was made in error, CAWG publishes a superseding entry with a later distrust-after time and the reason for the change.
+
+Emergency distrust is published in the designation register, which MUST be signed when it contains distrust entries, so that validators can authenticate them. It applies whatever the affected partner's own trust list says.
+
+CAWG MUST define, before the first designation, who may invoke emergency distrust, what evidence is required, how quickly an entry can be published, and how the affected partner can respond or appeal. Because a backdated distrust-after time can invalidate legitimate signatures, the evidence and reasoning for each entry SHOULD be published, and an entry SHOULD be reviewed after it is published.
+
+Emergency distrust applies to a specific certificate. CAWG MAY also suspend or withdraw the partner's designation, which takes effect from that time onwards.
 
 === Designation register
 
@@ -64,11 +85,12 @@ CAWG publishes a designation register listing, for each current and past designa
 
 * the partner's name and scope;
 * one or more *designation intervals*: each with a start date/time and, if it has ended, an end date/time. A suspension ends an interval; a reinstatement starts a new one. Withdrawal ends the last interval;
-* the location of the partner's published trust list; and
-* the applicable credential-type profile.
+* the location of the partner's published trust list;
+* the applicable credential-type profile; and
+* any emergency distrust entries for the partner's trust anchors or issuing CAs (<<_emergency_distrust>>).
 
 The designation register is authoritative for when a designation is in effect. A partner's own trust anchor dates can narrow that period but cannot extend it.
 
-The register MUST be published at a stable HTTPS URL, SHOULD be signed, and MUST keep past intervals rather than deleting them, so that historical signatures can be evaluated.
+The register MUST be published at a stable HTTPS URL, SHOULD be signed (and MUST be signed when it contains emergency distrust entries), and MUST keep past intervals and distrust entries rather than deleting them, so that historical signatures can be evaluated.
 
 The register is a record of CAWG's recognition decisions. It is not itself a trust list, and CAWG does not operate the partners' lists.

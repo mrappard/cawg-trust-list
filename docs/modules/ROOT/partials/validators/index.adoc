@@ -23,6 +23,8 @@ If a trust anchor configuration has no `notBefore`, the start of the designation
 
 A time of signing that falls while a designation is suspended, or before it first started, MUST NOT result in trust through that partner.
 
+A validator MUST also apply emergency distrust entries in the designation register: if a credential's chain includes a certificate with a distrust entry, and the time of signing is at or after that entry's distrust-after time, the credential MUST NOT be treated as trusted through that chain. This applies whatever the partner's own trust list says. A validator MUST verify the register's signature before applying distrust entries.
+
 For X.509 credentials, a validator MUST additionally require that the certificate contains `id-kp-documentSigning`, contains one of that partner's certificate policy OIDs, and chains to one of that partner's trust anchor configurations.
 
 === Revocation and invalidity
@@ -30,9 +32,22 @@ For X.509 credentials, a validator MUST additionally require that the certificat
 A validator:
 
 * MUST treat a credential as untrusted for any identity assertion whose time of signing is at or after the credential's invalidity date, where one is published, even if the assertion was time-stamped before the revocation time;
-* MUST NOT rely only on a stapled status response to establish that a credential has not been revoked for key compromise. If the validator is online, it SHOULD obtain current status from the issuer;
+* MUST NOT rely only on a stapled status response to establish that a credential has not been revoked for key compromise. If the validator is online, it SHOULD obtain current status from the issuer, and MUST evaluate it as described in <<_evaluating_a_current_status_response>>;
 * MUST, where status could not be established (no response, an `unknown` response, or the validator is offline with no stapled response), report that revocation status was not established alongside any trust result, rather than presenting the identity as trusted without qualification; and
 * MUST treat an X.509 certificate with no Authority Information Access OCSP URL as not conforming to the X.509 profile, and MUST NOT treat it as trusted through a partner.
+
+=== Evaluating a current status response
+
+A status response obtained at validation time answers two separate questions, which a validator MUST check separately:
+
+. *Is the response fresh?* This is checked against the *current time*. For OCSP, the current time MUST be no earlier than `thisUpdate` and, if `nextUpdate` is present, no later than `nextUpdate`. A response that is not fresh MUST be ignored.
+. *Was the credential valid at the time of signing?* This is checked against the *time of signing*:
+** If the status is `good`, the credential is established as not revoked at the time of signing, provided the time of signing is no later than `thisUpdate`.
+** If the status is `revoked` and an invalidity date is present, the credential is established as not revoked at the time of signing only if the time of signing is before the invalidity date.
+** If the status is `revoked` with no invalidity date (routine revocation), the credential is established as not revoked at the time of signing only if the time of signing is before the `revocationTime`.
+** If the status is `unknown`, revocation status is not established.
+
+A validator MUST NOT require the time of signing to fall within the response's `thisUpdate`–`nextUpdate` interval. That interval describes the freshness of the response, not the period the response covers, and requiring it would reject valid signatures made before the current response was produced.
 
 === Reporting
 

@@ -21,8 +21,12 @@ Some requirements in this framework can only take effect if the identity asserti
 | A stapled response establishes status at the time of signing only. Where the validator is online, it should also obtain current status, so that a later revocation for key compromise is found.
 
 | Determining revocation from online OCSP response
-| A `revoked` response is accepted as "not revoked at the time of signing" if the `revocationTime` is after the attested time.
-| If the response includes an Invalidity Date (RFC 5280, Section 5.3.2), compare the attested time with the invalidity date rather than the revocation time. An attested time at or after the invalidity date results in `cawg.identity.credential_revoked`.
+| A response establishes "not revoked at the time of signing" only if the attested time falls within the response's `(thisUpdate,nextUpdate)` interval. Otherwise, unless the status is `unknown`, the certificate "MUST be considered revoked." A current `good` response for a signature made months earlier therefore causes rejection. For `revoked` responses, the attested time is compared with `revocationTime`.
+| Replace with the two-step evaluation in <<_evaluating_a_current_status_response>>: check freshness against the current time, then check validity at the time of signing (`good` covers a time of signing up to `thisUpdate`; `revoked` compares against the Invalidity Date (RFC 5280, Section 5.3.2) if present, otherwise `revocationTime`). An attested time at or after the invalidity date results in `cawg.identity.credential_revoked`. A response that does not establish status gives "not established," not "revoked."
+
+| Trust model for X.509 certificates
+| No mechanism for distrusting a trust anchor or CA from a past time independently of the list that contains it.
+| Require validators to apply signed emergency distrust entries from the designation register (<<_emergency_distrust>>).
 
 | Status codes
 | `cawg.x509.ocsp.unknown`, `cawg.x509.ocsp.inaccessible` and `cawg.x509.ocsp.skipped` are informational, and do not qualify a `trusted` result.

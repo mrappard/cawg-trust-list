@@ -31,9 +31,18 @@ These requirements apply to every trust governance partner designated for identi
 The effect of revocation depends on the reason:
 
 * *Routine revocation* (the subject's details changed, its relationship with the issuer ended, or the credential was replaced) MUST NOT invalidate identity assertions that a trusted time stamp shows were signed before the revocation time.
-* *Revocation for key compromise or mis-issuance* MUST carry an *invalidity date*. For key compromise, this is the earliest time the key is known or suspected to have been compromised. For mis-issuance, this is the time the credential was issued. Identity assertions whose trusted time of signing is at or after the invalidity date MUST be treated as untrusted, even if they were time-stamped before the revocation time.
+* *Revocation for key compromise or mis-issuance* MUST carry an *invalidity date*. Identity assertions whose trusted time of signing is at or after the invalidity date MUST be treated as untrusted, even if they were time-stamped before the revocation time.
 
-An invalidity date MUST NOT be earlier than the start of the credential's validity period. A credential issuer MUST keep the evidence on which an invalidity date is based, and MUST provide it to its trust governance partner on request, so that the date can be reviewed and an issuer cannot invalidate legitimate signatures without cause.
+The invalidity date MUST be set as follows:
+
+* *Mis-issuance:* the start of the credential's validity period (for X.509, `notBefore`), so that no signature made with the credential is trusted.
+* *Key compromise:* the earliest time the key is known or suspected to have been compromised, or the start of the credential's validity period, whichever is later. If the key was compromised before the credential became valid, the invalidity date is therefore the start of the validity period.
+
+NOTE: Signatures made before the start of a credential's validity period are already outside its validity, so setting the invalidity date no earlier than that start loses nothing.
+
+A credential issuer MUST keep the evidence on which an invalidity date is based, and MUST provide it to its trust governance partner on request, so that the date can be reviewed and an issuer cannot invalidate legitimate signatures without cause.
+
+If a trust governance partner or a credential issuer cannot be relied on to publish revocations (for example, because it is itself compromised), CAWG can act independently through emergency distrust (<<_emergency_distrust>>).
 
 === Validity period
 

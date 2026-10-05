@@ -8,6 +8,8 @@ _This section is non-normative._
 . *Review group.* Who reviews designation applications, how are conflicts of interest handled (for example, a CA participant reviewing a competing CA), and how are decisions appealed?
 . *Staffing.* CAWG starts as an unfunded project. Who does the work of reviewing applications, maintaining the designation register and handling incidents?
 . *Liability and terms.* What liability does CAWG take on by designating a partner, and what must designation agreements say? This needs Linux Foundation legal review.
+. *Emergency distrust governance.* Who may invoke emergency distrust, on what evidence, how quickly, and how is it reviewed and appealed? This needs answering before the first designation, and it needs someone available to act at short notice, which is hard for an unfunded project.
+. *Register signing key.* Who holds the key that signs the designation register, and how is it protected? Emergency distrust is only as trustworthy as that key.
 . *Designation register.* Is publishing the register consistent with the decision that CAWG does not operate registries, and who hosts it?
 
 === Technical

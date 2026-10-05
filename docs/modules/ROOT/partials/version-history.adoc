@@ -7,6 +7,10 @@ _This section is non-normative._
 |===
 | Version | Date | Changes
 
+| 0.4
+| 5 October 2026
+| Added emergency distrust: signed register entries that let CAWG distrust a specific anchor or CA from a past time without the partner's cooperation. Split evaluation of a current status response into a freshness check (current time) and a validity check (time of signing), fixing rejection of historical signatures. Invalidity date for mis-issuance is now the start of validity, and for key compromise the later of the compromise time and the start of validity.
+
 | 0.3
 | 5 October 2026
 | Revocation for key compromise or mis-issuance now uses an invalidity date, so signatures made with a stolen key after compromise are not trusted. Validators enforce designation intervals from the register (including suspension and reinstatement) as well as trust anchor dates. X.509 certificates must carry an OCSP URL, and validators must report when revocation status was not established. Added the list of changes needed in the identity assertion specification.
