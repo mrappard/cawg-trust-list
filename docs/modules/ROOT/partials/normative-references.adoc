@@ -1,0 +1,10 @@
+== Normative references
+
+* link:https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html[C2PA Technical Specification, version 2.4]
+* link:https://cawg.io/identity/[CAWG Identity Assertion, version 1.3]
+* link:https://www.rfc-editor.org/rfc/rfc2119[RFC 2119]: Key words for use in RFCs to Indicate Requirement Levels
+* link:https://www.rfc-editor.org/rfc/rfc8174[RFC 8174]: Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words
+* link:https://www.rfc-editor.org/rfc/rfc3647[RFC 3647]: Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework
+* link:https://www.rfc-editor.org/rfc/rfc5280[RFC 5280]: Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile
+* link:https://www.rfc-editor.org/rfc/rfc6960[RFC 6960]: X.509 Internet Public Key Infrastructure Online Certificate Status Protocol - OCSP
+* link:https://www.rfc-editor.org/rfc/rfc9336[RFC 9336]: X.509 Certificate General-Purpose Extended Key Usage (EKU) for Document Signing

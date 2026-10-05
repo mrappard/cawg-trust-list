@@ -1,0 +1,10 @@
+[#_version_history]
+== Version history
+
+_This section is non-normative._
+
+[cols="1,1,4",options="header"]
+|===
+| Version | Date | Changes
+| 0.1 | 5 October 2026 | Initial pre-draft proposal.
+|===

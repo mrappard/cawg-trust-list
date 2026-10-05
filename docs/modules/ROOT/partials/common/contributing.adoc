@@ -1,0 +1,8 @@
+[discrete]
+== Contributing
+
+_This section is non-normative._
+
+This is a pre-draft proposal and has not been approved by the Creator Assertions Working Group.
+Comments and proposed changes are welcome as issues or pull requests on this repository.
+For CAWG participation, see the link:++https://cawg.io/#_contributing++[CAWG contributing guide].

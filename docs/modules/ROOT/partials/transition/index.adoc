@@ -1,0 +1,17 @@
+== Transition from the interim trust model
+
+_This section is non-normative._
+
+The interim trust model in the CAWG identity assertion specification ends for identity assertions generated after 31 March 2027. This gives a fixed deadline for the CAWG Trust List.
+
+A possible timeline:
+
+. Working group agrees the issuance model, certificate policy OID and list operator.
+. First participating CA admitted and the first version of the CAWG Trust List published, with `notBefore` set to the date of publication.
+. Validator implementations ship the CAWG Trust List in their default configuration.
+. Members obtain certificates under the CAWG certificate policy and switch identity assertion signing to them, well before 31 March 2027.
+. After 31 March 2027, newly generated identity assertions are trusted only through the CAWG trust configuration (including the CAWG Trust List) or user-configured trust.
+
+Identity assertions signed under the interim trust model with a trusted time stamp on or before 31 March 2027 remain valid after that date; the transition does not affect them.
+
+The identity assertion specification may need a minor update to reference the CAWG Trust List and the CAWG certificate policy OID once they exist.

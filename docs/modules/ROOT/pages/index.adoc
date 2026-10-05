@@ -1,0 +1,38 @@
+= CAWG Trust List
+:toc: macro
+:toc-title:
+:sectanchors:
+:sectnums:
+:sectnumlevels: 5
+
+include::partial$abstract.adoc[]
+
+*Version 0.1 Pre-Draft Proposal* · Not adopted by the Creator Assertions Working Group.
+
+IMPORTANT: This document is a working proposal. Requirements written with MUST, SHOULD and MAY describe the proposed design; they are not yet requirements of any CAWG specification.
+
+include::partial$common/license.adoc[]
+
+include::partial$common/contributing.adoc[]
+
+include::partial$common/foreword.adoc[]
+
+include::partial$common/toc.adoc[]
+
+include::partial$introduction/index.adoc[]
+
+include::partial$normative-references.adoc[]
+
+include::partial$terms-and-definitions.adoc[]
+
+include::partial$trust-list/index.adoc[]
+
+include::partial$certificate-policy/index.adoc[]
+
+include::partial$governance/index.adoc[]
+
+include::partial$transition/index.adoc[]
+
+include::partial$open-questions.adoc[]
+
+include::partial$version-history.adoc[]

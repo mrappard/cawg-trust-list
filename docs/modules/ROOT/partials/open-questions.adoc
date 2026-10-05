@@ -1,0 +1,12 @@
+== Open questions
+
+_This section is non-normative._
+
+. *OID arc.* Should DIF obtain an IANA Private Enterprise Number, or should the CAWG use an arc delegated by another body (for example, the C2PA)?
+. *Certificate policy OID or EKU.* Is a certificate policy OID under `id-kp-documentSigning` sufficient, or does the CAWG need its own EKU, as the C2PA has?
+. *Issuance model.* A single CAWG-operated CA, or multiple participating CAs?
+. *List operator.* DIF, a CAWG committee, or a delegated operator?
+. *Membership definition.* Which participants qualify (DIF members participating in CAWG, signatories of the CAWG charter, or a broader set), and can members sponsor non-member signers such as their employees or contractors?
+. *Membership feed.* How do participating CAs learn about membership changes, and how quickly must they revoke?
+. *List format.* Should the machine-readable format be shared with the C2PA Trust List and the IPTC list, so validators can use one parser?
+. *Deadline.* Can the list be operational before 31 March 2027, or does the interim trust model need to be extended?
